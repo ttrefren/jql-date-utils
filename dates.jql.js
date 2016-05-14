@@ -48,3 +48,26 @@ function event_date_unit(unit) {
             throw "invalid unit";
     }
 }
+
+function get_next_month(start_month) {
+    var copy = new Date(start_month);
+    copy.setDate(1);
+    copy.setHours(0);
+    copy.setMinutes(0);
+    copy.setSeconds(0);
+    copy.setMilliseconds(0);
+
+    copy.setMonth(copy.getMonth() + 1);
+    return copy;
+}
+
+function month_range(start_month, end_month) {
+    if (!(end_month > start_month)) {
+        throw "invalid month range";
+    }
+    var range = [start_month];
+    while (range[range.length - 1] < end_month) {
+        range.push(get_next_month(range[range.length - 1]));
+    }
+    return range;
+}
